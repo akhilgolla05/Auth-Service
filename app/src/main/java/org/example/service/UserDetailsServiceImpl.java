@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.example.entities.UserInfo;
 import org.example.entities.UserRole;
+import org.example.eventProducer.UserInfoProducer;
 import org.example.models.UserInfoDto;
 import org.example.repository.UserInfoRepository;
 import org.example.util.ValidationUtil;
@@ -24,6 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserInfoRepository userInfoRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserInfoProducer userInfoProducer;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -45,6 +47,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             }
             userInfoRepository.save(new UserInfo(UUID.randomUUID().toString(),
                     userDto.getUsername(), userDto.getPassword(), new HashSet<UserRole>()));
+
+            //pushEventToQueue
+            userInfoProducer.sendEventToKafka(userDto);
             return true;
         }
         return false;
