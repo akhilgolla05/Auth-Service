@@ -11,12 +11,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+
 public class UserInfoProducer {
 
     private final KafkaTemplate<String, UserInfoDto> kafkaTemplate;
 
-    @Value("${spring.kafka.topic.name}")
-    private String TOPIC_NAME;
+   // @Value("${spring.kafka.topic.name}")
+    private static final String TOPIC_NAME = "testingSelf";
 
     public void sendEventToKafka(UserInfoDto userInfoDto){
         Message<UserInfoDto> message =

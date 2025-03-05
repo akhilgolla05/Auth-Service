@@ -33,11 +33,11 @@ public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
 
     //@Bean
-    @Autowired
-    public UserDetailsService userDetailsService(UserInfoRepository userInfoRepository,
-                                                 PasswordEncoder passwordEncoder){
-        return new UserDetailsServiceImpl(userInfoRepository, passwordEncoder);
-    }
+//    @Autowired
+//    public UserDetailsService userDetailsService(UserInfoRepository userInfoRepository,
+//                                                 PasswordEncoder passwordEncoder){
+//        return new UserDetailsServiceImpl(userInfoRepository, passwordEncoder);
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter authFilter) throws Exception {
