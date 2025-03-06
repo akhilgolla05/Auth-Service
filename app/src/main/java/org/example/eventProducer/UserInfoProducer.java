@@ -19,9 +19,9 @@ public class UserInfoProducer {
    // @Value("${spring.kafka.topic.name}")
     private static final String TOPIC_NAME = "testingSelf";
 
-    public void sendEventToKafka(UserInfoDto userInfoDto){
-        Message<UserInfoDto> message =
-                MessageBuilder.withPayload(userInfoDto)
+    public void sendEventToKafka(UserInfoEvent userInfoEvent){
+        Message<UserInfoEvent> message =
+                MessageBuilder.withPayload(userInfoEvent)
                         .setHeader(KafkaHeaders.TOPIC, TOPIC_NAME)
                         .build();
 
